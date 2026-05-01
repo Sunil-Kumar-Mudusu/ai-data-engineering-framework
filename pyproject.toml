@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "adef"
+version = "1.0.0"
+description = "AI Data Engineering Framework — pipeline orchestration with ingestion, validation, transformation, quality, lineage, and audit"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Sunil Kumar Mudusu", email = "skumar.mudusu@gmail.com" }]
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

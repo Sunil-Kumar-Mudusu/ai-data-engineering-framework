@@ -1,0 +1,47 @@
+pipeline:
+  name: workforce_data_pipeline
+  version: "1.0"
+
+schema:
+  required_columns:
+    - record_id
+    - first_name
+    - last_name
+    - department
+    - email
+    - employment_status
+  column_types:
+    record_id: integer
+    annual_salary: float
+  allowed_values:
+    employment_status:
+      - active
+      - inactive
+    department:
+      - Engineering
+      - Marketing
+      - HR
+      - Finance
+      - Legal
+
+transformations:
+  - type: rename_column
+    from: first_name
+    to: given_name
+  - type: rename_column
+    from: last_name
+    to: family_name
+  - type: derive_column
+    name: full_name
+    columns:
+      - given_name
+      - family_name
+    separator: " "
+  - type: normalize_column
+    column: employment_status
+    operation: uppercase
+
+quality:
+  max_missing_pct: 10.0
+  max_duplicate_pct: 5.0
+  min_quality_score: 75.0
